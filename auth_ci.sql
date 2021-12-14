@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 19 Nov 2021 pada 07.49
+-- Waktu pembuatan: 14 Des 2021 pada 07.41
 -- Versi server: 10.4.20-MariaDB
 -- Versi PHP: 7.4.21
 
@@ -40,13 +40,6 @@ CREATE TABLE `users` (
   `updated_at` date NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Dumping data untuk tabel `users`
---
-
-INSERT INTO `users` (`id`, `name`, `gender`, `address`, `email`, `password`, `image`, `active`, `created_at`, `updated_at`) VALUES
-(7, 'gipay', NULL, NULL, 'ghifariansar13@gmail.com', '$2y$10$i4xk73EuhUupBFv.nOloDuYXsYq/6lQ6YFjmAs0sa8dZxru/OvEe2', 'blank-profile-picture.png', 1, '2021-11-16', '2021-11-16');
-
 -- --------------------------------------------------------
 
 --
@@ -63,14 +56,6 @@ CREATE TABLE `users_token` (
   `created_at` date NOT NULL DEFAULT current_timestamp(),
   `updated_at` date NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data untuk tabel `users_token`
---
-
-INSERT INTO `users_token` (`id`, `email`, `token`, `type`, `expire`, `status`, `created_at`, `updated_at`) VALUES
-(13, 'ghifariansar13@gmail.com', 'yt93WTSk8hcogzOUUZvjJ2pHEJfAweiEOIRf6PhFW7n2dy92UL', 'Verification', 1637073477, 1, '2021-11-16', '2021-11-16'),
-(14, 'ghifariansar13@gmail.com', '8S4PUslEtbbvCrpjr6hejpoXxNrs3M3plbSPvbeV6T4hdX5uRd', 'Reset', 1637115714, 1, '2021-11-17', '2021-11-17');
 
 --
 -- Indexes for dumped tables
@@ -96,13 +81,13 @@ ALTER TABLE `users_token`
 -- AUTO_INCREMENT untuk tabel `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT untuk tabel `users_token`
 --
 ALTER TABLE `users_token`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
