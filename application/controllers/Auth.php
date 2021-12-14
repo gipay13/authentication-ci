@@ -44,7 +44,7 @@ class Auth extends CI_Controller {
 
 		// print_r($login);
 
-		$user = $this->AuthModel->verify($login['email']);
+		$user = $this->AuthModel->find_user($login['email']);
 
 		if ($user) {
 			if($user->active == 1) {
@@ -170,7 +170,7 @@ class Auth extends CI_Controller {
 		$email = $this->input->get('email');
 		$token = $this->input->get('token');
 
-		$user = $this->AuthModel->verify($email);
+		$user = $this->AuthModel->find_user($email);
 
 		if($user) {
 			$user_token = $this->AuthModel->get_token($token);
@@ -286,7 +286,7 @@ class Auth extends CI_Controller {
 		} else {
 			$email = $this->input->post('email', true);
 
-			$user =  $this->AuthModel->verify($email, TRUE);
+			$user =  $this->AuthModel->find_user($email, TRUE);
 
 			if($user) {
 				$token = generate_token(50);
@@ -326,7 +326,7 @@ class Auth extends CI_Controller {
 		$email = $this->input->get('email');
 		$token = $this->input->get('token');
 
-		$user = $this->AuthModel->verify($email);
+		$user = $this->AuthModel->find_user($email);
 
 		if($user) {
 			$user_token = $this->AuthModel->get_token($token);

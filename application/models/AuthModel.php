@@ -2,7 +2,7 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class AuthModel extends CI_Model {
-    function verify($email, $active = false) {
+    function find_user($email, $active = false) {
         $this->db->where('email', $email);
         if($active != false) {
             $this->db->where('active', 1);

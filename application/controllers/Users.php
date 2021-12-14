@@ -13,7 +13,7 @@ class Users extends CI_Controller {
 	public function index()
 	{
 		$data = [
-			'user' => $this->AuthModel->verify($this->session->userdata('email')),
+			'user' => $this->AuthModel->find_user($this->session->userdata('email')),
 		];
 
 		$this->template->load('layouts/layouts-admin', 'user/dashboard-page', $data);
@@ -27,7 +27,7 @@ class Users extends CI_Controller {
 
 		if($this->form_validation->run() == false) {
 			$data = [
-				'user' => $this->AuthModel->verify($this->session->userdata('email')),
+				'user' => $this->AuthModel->find_user($this->session->userdata('email')),
 			];
 			
 			$this->template->load('layouts/layouts-admin', 'user/edit-profile-page', $data);
@@ -48,9 +48,9 @@ class Users extends CI_Controller {
 
 			if(@$_FILES['image']['name'] != null) {
 				if($this->upload->do_upload('image')) {
-					$old_image = $data['user']['image'];
-					if($old_image != 'blank-profile-picture.png') {
-						unlink('/uploads/image_profile/'.$old_image);
+					$old_image = $this->AuthModel->find_user($this->session->userdata('email'));
+					if($old_image->image != 'blank-profile-picture.png') {
+						unlink(FCPATH.'/uploads/image_profile/'.$old_image->image);
 					}
 
 					$update['image'] = $this->upload->data('file_name');
