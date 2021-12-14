@@ -24,7 +24,7 @@
                     </div>
                 </div>
             </div>
-            <div class="mb-4">
+			<div class="mb-4">
                 <?= form_error('repassword', '<small class="text-danger"> <i class="fas fa-times"></i> ', '</small>') ?>
             </div>
             <div class="row">

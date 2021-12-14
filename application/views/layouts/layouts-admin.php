@@ -48,7 +48,7 @@ defined('BASEPATH') OR exit('No direct script access allowed'); ?>
 
 		<aside class="main-sidebar sidebar-dark-primary elevation-4">
     <a href="<?= base_url() ?>" class="brand-link">
-      <img src="<?= base_url() ?>assets/dist/img/AdminLTELogo.png" alt="ACI Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+      <img src="https://cdn.freebiesupply.com/logos/large/2x/codeigniter-logo-png-transparent.png" alt="ACI Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
       <span class="brand-text font-weight-light">ACI</span>
     </a>
 

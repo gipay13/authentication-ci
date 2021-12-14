@@ -30,24 +30,26 @@
             </div>
 
             <div class="input-group">
-                <input type="password" name="password" class="form-control" placeholder="Password">
+                <input type="password" name="password" id="password" class="form-control" placeholder="Password">
                 <div class="input-group-append">
-                    <div class="input-group-text">
-                        <span class="fas fa-lock"></span>
+                    <div class="input-group-text" style="margin: 0; padding-left: 11px; padding-right: 11px;">
+                        <a href="#" class="text-dark" id="icon-click-password"><i class="fas fa-eye" id="icon-password"></i></a>
                     </div>
                 </div>
             </div>
             <div class="mb-3">
                 <?= form_error('password', '<small class="text-danger"> <i class="fas fa-times"></i> ', '</small>') ?>
             </div>
-
-			<div class="input-group mb-4">
-                <input type="password" name="repassword" class="form-control" placeholder="Retype Password">
+			<div class="input-group">
+                <input type="password" name="repassword" id="repassword" class="form-control" placeholder="Retype Password">
                 <div class="input-group-append">
-                    <div class="input-group-text">
-                        <span class="fas fa-lock"></span>
+                    <div class="input-group-text" style="margin: 0; padding-left: 11px; padding-right: 11px;"	>
+                        <a href="#" class="text-dark" id="icon-click-repassword"><i class="fas fa-eye" id="icon-repassword"></i></a>
                     </div>
                 </div>
+            </div>
+			<div class="mb-4">
+                <?= form_error('repassword', '<small class="text-danger"> <i class="fas fa-times"></i> ', '</small>') ?>
             </div>
             <div class="row">
                 <div class="col-4">

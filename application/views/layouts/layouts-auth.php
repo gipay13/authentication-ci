@@ -23,6 +23,34 @@ defined('BASEPATH') OR exit('No direct script access allowed'); ?>
         <div class="login-box">
             <?= $content ?>
         </div>
+
+		<script>
+			$(document).ready(function () {
+				$('#icon-click-password').on('click', function () {
+					$('#icon-password').toggleClass('fa-eye-slash');
+
+					var input = $('#password');
+
+					if(input.attr('type') === 'password') {
+						input.attr('type', 'text');
+					} else {
+						input.attr('type', 'password');
+					}
+				});
+
+				$('#icon-click-repassword').on('click', function () {
+					$('#icon-repassword').toggleClass('fa-eye-slash');
+
+					var input = $('#repassword');
+
+					if(input.attr('type') === 'password') {
+						input.attr('type', 'text');
+					} else {
+						input.attr('type', 'password');
+					}
+				});
+			});
+		</script>
 	</body>
 </html>
 

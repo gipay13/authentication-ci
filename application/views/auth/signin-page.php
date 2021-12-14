@@ -19,10 +19,10 @@
             </div>
 
 			<div class="input-group">
-				<input type="password" name="password" class="form-control" placeholder="Password">
+				<input type="password" name="password" id="password" class="form-control" placeholder="Password">
 				<div class="input-group-append">
-					<div class="input-group-text">
-						<span class="fas fa-lock"></span>
+					<div class="input-group-text" style="margin: 0; padding-left: 11px; padding-right: 11px;">
+						<a href="#" class="text-dark" id="icon-click-password"><i class="fas fa-eye" id="icon-password"></i></a>
 					</div>
 				</div>
 			</div>
@@ -31,12 +31,6 @@
             </div>
 
 			<div class="row mb-4">
-				<div class="col-8">
-					<div class="icheck-primary">
-						<input type="checkbox" name="remember" id="remember">
-						<label for="remember">Remember Me</label>
-					</div>
-				</div>
 				<div class="col-4">
 					<button type="submit" class="btn btn-primary btn-block">Sign In</button>
 				</div>

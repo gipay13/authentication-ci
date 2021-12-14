@@ -16,10 +16,13 @@ class Auth extends CI_Controller {
 		} else {
 			$this->form_validation->set_rules('email', 'Email', 'required|trim|valid_email', 
 												[
-													'required' => 'Please fill out email field.', 
-													'valid_email' => 'Email field must contain a valid email.',
+													'required' 		=> 'Please fill out email field.', 
+													'valid_email' 	=> 'Email field must contain a valid email.',
 												]);
-			$this->form_validation->set_rules('password', 'Password', 'required|trim', ['required' => 'Please fill out password field']);
+			$this->form_validation->set_rules('password', 'Password', 'required|trim', 
+												[
+													'required' 		=> 'Please fill out password field'
+												]);
 			
 
 			if($this->form_validation->run() == false) {
@@ -100,17 +103,21 @@ class Auth extends CI_Controller {
 			$this->form_validation->set_rules('name', 'Name', 'required|trim', ['required' => 'Please fill out name field']);
 			$this->form_validation->set_rules('email', 'Email', 'required|trim|valid_email|is_unique[users.email]', 
 												[
-													'required' => 'Please fill out email field.', 
-													'valid_email' => 'Email field must contain a valid email.',
-													'is_unique' => 'Email already in use.'
+													'required' 		=> 'Please fill out email field.', 
+													'valid_email' 	=> 'Email field must contain a valid email.',
+													'is_unique' 	=> 'Email already in use.'
 												]);
-			$this->form_validation->set_rules('password', 'Password', 'required|trim|min_length[8]|matches[repassword]', 
+			$this->form_validation->set_rules('password', 'Password', 'required|trim|min_length[8]|alpha_numeric_spaces', 
 												[
-													'required' => 'Please fill out password field.',
-													'min_length' => 'Password must have 8 characters.',
-													'matches' => 'Password does not match.'
+													'required' 				=> 'Please fill out password field.',
+													'min_length' 			=> 'Password must have 8 characters.',
+													'alpha_numeric_spaces'	=> 'Password may only contain a-z, 1-9&0'
 												]);
-			$this->form_validation->set_rules('repassword', 'Password', 'required|trim|matches[password]', ['required' => 'Please fill out password field']);
+			$this->form_validation->set_rules('repassword', 'Password', 'required|trim|matches[password]', 
+												[
+													'required' 				=> 'Please fill out password field',
+													'matches' 				=> 'Password does not match.'
+												]);
 
 			if($this->form_validation->run() == false) {
 
@@ -142,7 +149,7 @@ class Auth extends CI_Controller {
 						'verification'	=> base_url('').'verify?email='.$this->input->post('email').'&token='.$token
 					];
 
-					$this->_sendmail($token, 'verification', $token_url);
+					$this->_sendmail('verification', $token_url);
 				
 					$this->session->set_flashdata(
 						'message',
@@ -216,7 +223,7 @@ class Auth extends CI_Controller {
 									'message',
 									'<div class="alert alert-danger alert-dismissible">
 										<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-										<span class="text-sm text-white">Token Expired</span>
+										<span class="text-sm text-white">Token Expired, Please Register Again</span>
 									</div>'
 								);	
 								redirect('');
@@ -290,7 +297,7 @@ class Auth extends CI_Controller {
 					'reset' => base_url('').'passwordrecover?email='.$this->input->post('email').'&token='.$token,
 				];
 
-				$this->_sendmail($token, 'passwordreset', $token_url);
+				$this->_sendmail('passwordreset', $token_url);
 
 				$this->session->set_flashdata(
 					'message',
@@ -328,16 +335,17 @@ class Auth extends CI_Controller {
 				if($user_token->status == 0) {
 					if(time() - $user_token->expire < (60*60)) {
 						$this->session->set_userdata('password_reset', $email);
-						$this->form_validation->set_rules('password', 'Password', 'required|trim|min_length[8]|matches[repassword]', 
+						$this->form_validation->set_rules('password', 'Password', 'required|trim|min_length[8]|alpha_numeric_spaces', 
 													[
-														'required' => 'Please fill out password field.',
-														'min_length' => 'Password must have 8 characters.',
-														'matches' => 'Password does not match.'
+														'required' 				=> 'Please fill out password field.',
+														'min_length' 			=> 'Password must have 8 characters.',
+														'matches' 				=> 'Password does not match.',
+														'alpha_numeric_spaces'	=> 'Password may only contain a-z, 1-9&0'
 													]);
 						$this->form_validation->set_rules('repassword', 'Confirm Password', 'required|trim|matches[password]', 
 													[
-														'required' => 'Please fill out confirm password field',
-														'matches' => 'Password does not match.'
+														'required'				=> 'Please fill out confirm password field',
+														'matches' 				=> 'Password does not match.'
 													]);
 	
 						if($this->form_validation->run() == false) {
@@ -362,7 +370,7 @@ class Auth extends CI_Controller {
 									'message',
 									'<div class="alert alert-danger alert-dismissible">
 										<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-										<span class="text-sm text-white">Token Expired</span>
+										<span class="text-sm text-white">Something Wrong, Please Try Again</span>
 									</div>'
 								);
 								redirect('passwordrecover?email='.$email.'&token='.$token);	
@@ -424,8 +432,19 @@ class Auth extends CI_Controller {
 		}
     }
 
-	private function _sendmail($token, $type, $token_url) 
+	private function _sendmail($type, $token_url) 
 	{
+		// mailtrap
+		// $config = [
+		// 	'protocol' => 'smtp',
+		// 	'smtp_host' => 'smtp.mailtrap.io',
+		// 	'smtp_port' => 2525,
+		// 	'smtp_user' => 'dbc6a89629661a',
+		// 	'smtp_pass' => 'e9ba0a3c49f104',
+		// 	'crlf' => "\r\n",
+		// 	'newline' => "\r\n"
+		// ];
+
 		$config = [
 			'protocol' 	=> 'smtp',
 			'smtp_host'	=> 'ssl://smtp.googlemail.com',
