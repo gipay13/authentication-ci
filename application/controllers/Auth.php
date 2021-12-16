@@ -358,7 +358,18 @@ class Auth extends CI_Controller {
 							$this->template->load('layouts/layouts-auth', 'auth/passwordrecover-page', $data);
 						} else {
 							$email = $this->session->userdata('password_reset');
-							$password = password_hash($this->input->post('password'), PASSWORD_DEFAULT);
+							$password = $this->input->post('password');
+
+							if(password_verify($password, $user->password)) {
+								$this->session->set_flashdata(
+									'message',
+									'<div class="alert alert-warning alert-dismissible">
+										<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+										<span class="text-sm text-white">Please Use New Password, Dont Use Same Password as Before</span>
+									</div>'
+								);
+								redirect('passwordrecover?email='.$email.'&token='.$token);	
+							}
 	
 							$this->db->trans_start();
 							$this->AuthModel->update_user_password($email, $password);
@@ -392,7 +403,7 @@ class Auth extends CI_Controller {
 							'message',
 							'<div class="alert alert-danger alert-dismissible">
 								<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-								<span class="text-sm text-white">Token Expired</span>
+								<span class="text-sm text-white">Token Expired 1</span>
 							</div>'
 						);	
 						redirect('passwordreset');
@@ -402,7 +413,7 @@ class Auth extends CI_Controller {
 						'message',
 						'<div class="alert alert-danger alert-dismissible">
 							<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-							<span class="text-sm text-white">Token Expired</span>
+							<span class="text-sm text-white">Token Expired 2</span>
 						</div>'
 					);
 					

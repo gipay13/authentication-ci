@@ -4,9 +4,10 @@
     </div>
     <div class="card-body">
         <p class="login-box-msg"><?= $this->session->userdata('password_reset') ?></p>
+		<?= $this->session->flashdata('message') ?>
         <form action="<?= base_url('passwordrecover?email='.$email.'&token='.$token) ?>" method="post">
             <div class="input-group">
-                <input type="password" name="password" id="password" class="form-control" placeholder="Password">
+                <input type="password" name="password" id="password" class="form-control" placeholder="New Password">
                 <div class="input-group-append">
                     <div class="input-group-text">
                        <a href="#" class="text-dark" id="icon-click-password"><i class="fas fa-eye" id="icon-password"></i></a>
@@ -17,7 +18,7 @@
                 <?= form_error('password', '<small class="text-danger"> <i class="fas fa-times"></i> ', '</small>') ?>
             </div>
             <div class="input-group">
-                <input type="password" name="repassword" id="repassword" class="form-control" placeholder="Confirm Password">
+                <input type="password" name="repassword" id="repassword" class="form-control" placeholder="Confirm New Password">
                 <div class="input-group-append">
                     <div class="input-group-text">
                         <a href="#" class="text-dark" id="icon-click-repassword"><i class="fas fa-eye" id="icon-repassword"></i></a>

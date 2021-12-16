@@ -29,7 +29,7 @@ class AuthModel extends CI_Model {
     }
 
     function update_user_password($email, $password) {
-        $data = ['password' => $password];
+        $data = ['password' => password_hash($password, PASSWORD_DEFAULT)];
         $this->db->where('email', $email);
         $this->db->update('users', $data);
     }
